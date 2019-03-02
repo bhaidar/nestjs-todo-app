@@ -3,8 +3,8 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { todos } from 'src/mock/todos.mock';
 import { TodoEntity } from './entity/todo.entity';
 import { TodoDto } from './dto/todo.dto';
-import { toPromise } from './shared/utils';
-import { toTodoDto } from './shared/mapper';
+import { toPromise } from '@shared/utils';
+import { toTodoDto } from '@shared/mapper';
 import { TodoCreateDto } from './dto/todo.create.dto';
 
 import * as uuid from 'uuid';

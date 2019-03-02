@@ -8,10 +8,10 @@ import {
   Delete,
 } from '@nestjs/common';
 import { TodoListDto } from './dto/todo.list.dto';
-import { toPromise } from './shared/utils';
 import { TodoDto } from './dto/todo.dto';
 import { TodoCreateDto } from './dto/todo.create.dto';
 import { TodoService } from './todo.service';
+import { toPromise } from '@shared/utils';
 
 @Controller('api/todos')
 export class TodoController {
