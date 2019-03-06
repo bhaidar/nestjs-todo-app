@@ -1,0 +1,99 @@
+1. Install npm packages
+    yarn add @nestjs/typeorm typeorm pg
+    yarn 
+
+2. Add the docker-compose file to connect to PostgreSQL (Shebang)
+ // https://docs.docker.com/samples/library/postgres/#initialization-scripts
+
+3. Add the script to create the db/user
+// dos2unix init-users-db.sh
+// dos2unix: converting file init-users-db.sh to Unix format...
+
+4. Add an npm script to run the services (db, etc.)
+
+5. Run docker 
+
+6. Verify the db is created "docker exec -it todo_db bash" (create a Bash session)
+// https://docs.docker.com/engine/reference/commandline/exec/
+
+7. initialize typeorm 
+npx typeorm init
+
+8. Amend tsconfig.json file by the current one here
+
+9. Amend all file paths to include @todo/ as paths for entities need to be the same all over
+
+10. Fill the ormconfig.json file
+    - include name as development
+    - include a production connection string
+
+11. Add utility functions to work with typeorm
+
+12. refactor AppModule to cater for forRoot()
+@Module({})
+export class AppModule {
+  static forRoot(connOptions: ConnectionOptions): DynamicModule {
+    return {
+      module: AppModule,
+      controllers: [AppController],
+      imports: [TodoModule],
+      providers: [AppService],
+    };
+  }
+}
+
+13. load connection options on main.tsconfig and pass them to AppModule
+  const app = await NestFactory.create(
+    AppModule.forRoot(await getDbConnectionOptions(process.env.NODE_ENV)),
+  );
+
+    /**
+   * Run DB migrations
+   */
+  await runDbMigrations();
+
+14. Import TypeOrModule with forRoot()
+@Module({})
+export class AppModule {
+  static forRoot(connOptions: ConnectionOptions): DynamicModule {
+    return {
+      module: AppModule,
+      controllers: [AppController],
+      imports: [TodoModule, TypeOrmModule.forRoot(connOptions)],
+      providers: [AppService],
+    };
+  }
+}
+
+15. Make your entities db-aware
+
+16. Import TypeOrmModule.forFeature() with entities
+
+17. Add mgiration settings to ormconfig.json
+
+18. Add scripts to package.json to handle typeorm 
+
+19. Generate migrations
+
+yarn migration:generate InitialCreate -c development
+$ ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -n InitialCreate -c development
+Migration D:\Projects\Playground\codemagazine\nest-app\server/src/migration/1551865385236-InitialCreate.ts has been generated successfully.
+Done in 3.73s.
+
+20. Run "initial migration"
+
+By running the app, the migrations would run
+or
+Run them manually
+
+21. Flip TodoService to use db
+  - Inject repos
+  - Use Pipes to validate inputs
+  - Install class-validator for the pipes to work: yarn add class-validator class-transformer
+  
+22. Flip TaskService to use db
+  - Inject repos
+  - Use Pipes to validate inputs
+  - Install class-validator for the pipes to work: yarn add class-validator class-transformer
+
+
