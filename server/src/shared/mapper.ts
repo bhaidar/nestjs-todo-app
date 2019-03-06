@@ -1,7 +1,7 @@
-import { TaskEntity } from 'src/todo/entity/task.entity';
-import { TaskDto } from 'src/todo/dto/task.dto';
-import { TodoEntity } from 'src/todo/entity/todo.entity';
-import { TodoDto } from 'src/todo/dto/todo.dto';
+import { TaskDto } from '@todo/dto/task.dto';
+import { TodoEntity } from '@todo/entity/todo.entity';
+import { TodoDto } from '@todo/dto/todo.dto';
+import { TaskEntity } from '@todo/entity/task.entity';
 
 export const toTodoDto = (data: TodoEntity): TodoDto => {
   const { id, name, description, tasks } = data;

@@ -6,6 +6,8 @@ import {
   Body,
   Put,
   Delete,
+  ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { TodoListDto } from './dto/todo.list.dto';
 import { TodoDto } from './dto/todo.dto';
@@ -34,6 +36,7 @@ export class TodoController {
   }
 
   @Put(':id')
+  @UsePipes(new ValidationPipe())
   async update(
     @Param('id') id: string,
     @Body() todoDto: TodoDto,

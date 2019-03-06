@@ -1,18 +1,24 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { TaskCreateDto } from '../dto/task.create.dto';
 import { TaskDto } from '../dto/task.dto';
-import { todos } from 'src/mock/todos.mock';
-import { TodoEntity } from '../entity/todo.entity';
-import { TaskEntity } from '../entity/task.entity';
+import { TaskEntity } from '@todo/entity/task.entity';
 import { toPromise } from '@shared/utils';
 import { toTaskDto } from '@shared/mapper';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { TodoEntity } from '@todo/entity/todo.entity';
 
 @Injectable()
 export class TaskService {
-  todos: TodoEntity[] = todos;
+  constructor(
+    @InjectRepository(TaskEntity)
+    private readonly taskRepo: Repository<TaskEntity>,
+    @InjectRepository(TodoEntity)
+    private readonly todoRepo: Repository<TodoEntity>,
+  ) {}
 
   async getTask(id: string): Promise<TaskDto> {
-    const task = this._getTask(id);
+    const task: TaskEntity = await this.taskRepo.findOne({ where: { id } });
 
     if (!task) {
       throw new HttpException(`Task doesn't exist`, HttpStatus.BAD_REQUEST);
@@ -22,29 +28,41 @@ export class TaskService {
   }
 
   async getTasksByTodo(id: string): Promise<TaskDto[]> {
-    const todo = this.todos.find(todo => todo.id === id);
+    const tasks: TaskEntity[] = await this.taskRepo.find({
+      where: { todo: { id } },
+      relations: ['todo'],
+    });
 
-    if (!todo) {
-      throw new HttpException(`Todo doesn't exist`, HttpStatus.BAD_REQUEST);
-    }
-
-    return toPromise(todo.tasks.map(task => toTaskDto(task)));
+    return toPromise(tasks.map(task => toTaskDto(task)));
   }
 
-  async createTask(taskDto: TaskCreateDto): Promise<TaskDto> {
-    throw new Error('Not implemented');
+  async createTask(todoId: string, taskDto: TaskCreateDto): Promise<TaskDto> {
+    const { name } = taskDto;
+
+    const todo: TodoEntity = await this.todoRepo.findOne({
+      where: { id: todoId },
+      relations: ['tasks'],
+    });
+
+    const task: TaskEntity = await this.taskRepo.create({
+      name,
+      todo,
+    });
+
+    await this.taskRepo.save(task);
+
+    return toPromise(toTaskDto(task));
   }
 
   async destoryTask(id: string): Promise<TaskDto> {
-    throw new Error('Not implemented');
-  }
+    const task: TaskEntity = await this.taskRepo.findOne({ where: { id } });
 
-  private _getTask(id: string): TaskEntity {
-    for (let todo of this.todos) {
-      const task = todo.tasks.find(task => task.id === id);
-
-      if (task) return task;
+    if (!task) {
+      throw new HttpException(`Task doesn't exist`, HttpStatus.BAD_REQUEST);
     }
-    return undefined;
+
+    await this.taskRepo.delete({ id });
+
+    return toPromise(toTaskDto(task));
   }
 }
