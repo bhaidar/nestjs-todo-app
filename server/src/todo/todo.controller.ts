@@ -31,6 +31,7 @@ export class TodoController {
   }
 
   @Post()
+  @UsePipes(new ValidationPipe())
   async create(@Body() todoCreateDto: TodoCreateDto): Promise<TodoDto> {
     return await this.todoService.createTodo(todoCreateDto);
   }
