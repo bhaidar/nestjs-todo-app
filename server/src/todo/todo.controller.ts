@@ -22,8 +22,9 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Get()
-  async findAll(): Promise<TodoListDto> {
+  async findAll(@Req() req: any): Promise<TodoListDto> {
     const todos = await this.todoService.getAllTodo();
+    //console.log('csrf: ', req.csrfToken());
     return { todos };
   }
 

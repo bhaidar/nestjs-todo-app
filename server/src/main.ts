@@ -7,6 +7,7 @@ import { getDbConnectionOptions, runDbMigrations } from '@shared/utils';
 import * as helmet from 'helmet';
 import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
+import * as cookieParser from 'cookie-parser';
 
 const port = process.env.PORT;
 
@@ -30,7 +31,12 @@ async function bootstrap() {
 
   app.enableCors();
 
-  app.use(csurf());
+  /**
+   * we need this because "cookie" is true in csrfProtection
+   */
+  app.use(cookieParser());
+
+  app.use(csurf({ cookie: true }));
 
   /**
    * To protect your applications from brute-force attacks
