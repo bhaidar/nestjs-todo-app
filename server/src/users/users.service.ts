@@ -5,6 +5,8 @@ import { UserDto } from './dto/user.dto';
 import { UserEntity } from '@user/entity/user.entity';
 import { toUserDto } from '@shared/mapper';
 import { UserCreateDto } from './dto/user.create.dto';
+import { UserLoginDto } from './dto/user-login.dto';
+import { comparePasswords } from '@shared/utils';
 
 @Injectable()
 export class UsersService {
@@ -20,6 +22,23 @@ export class UsersService {
 
   async findById(id: string): Promise<UserDto> {
     const user = await this.userRepo.findOne(id);
+    return toUserDto(user);
+  }
+
+  async findByLogin({ username, password }: UserLoginDto): Promise<UserDto> {
+    const user = await this.userRepo.findOne({ where: { username } });
+
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
+    }
+
+    // compare passwords
+    const areEqual = await comparePasswords(user.password, password);
+
+    if (!areEqual) {
+      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
+    }
+
     return toUserDto(user);
   }
 
