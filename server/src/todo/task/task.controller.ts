@@ -5,7 +5,6 @@ import {
   Post,
   Body,
   Delete,
-  ValidationPipe,
   UsePipes,
   UseGuards,
 } from '@nestjs/common';
@@ -31,7 +30,6 @@ export class TaskController {
   }
 
   @Post('todo/:id')
-  @UsePipes(new ValidationPipe())
   @UseGuards(AuthGuard())
   async create(
     @Param('id') todo: string,

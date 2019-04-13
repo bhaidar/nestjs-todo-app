@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { getDbConnectionOptions, runDbMigrations } from '@shared/utils';
 
 const port = process.env.PORT;
@@ -10,6 +10,15 @@ const port = process.env.PORT;
 async function bootstrap() {
   const app = await NestFactory.create(
     AppModule.forRoot(await getDbConnectionOptions(process.env.NODE_ENV)),
+  );
+
+  /**
+   * Apply validation for all inputs globally
+   */
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+    }),
   );
 
   /**

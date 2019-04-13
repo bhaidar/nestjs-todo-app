@@ -6,7 +6,6 @@ import {
   Body,
   Put,
   Delete,
-  ValidationPipe,
   UsePipes,
   UseGuards,
   Req,
@@ -34,7 +33,6 @@ export class TodoController {
   }
 
   @Post()
-  @UsePipes(new ValidationPipe())
   @UseGuards(AuthGuard())
   async create(
     @Body() createTodoDto: CreateTodoDto,
@@ -46,7 +44,6 @@ export class TodoController {
   }
 
   @Put(':id')
-  @UsePipes(new ValidationPipe())
   @UseGuards(AuthGuard())
   async update(
     @Param('id') id: string,

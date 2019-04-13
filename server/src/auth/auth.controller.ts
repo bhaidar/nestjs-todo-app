@@ -5,7 +5,6 @@ import {
   HttpException,
   HttpStatus,
   UsePipes,
-  ValidationPipe,
   Get,
   Req,
   UseGuards,
@@ -23,7 +22,6 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  @UsePipes(new ValidationPipe())
   public async register(
     @Body() createUserDto: CreateUserDto,
   ): Promise<RegistrationStatus> {
@@ -39,7 +37,6 @@ export class AuthController {
   }
 
   @Post('login')
-  @UsePipes(new ValidationPipe())
   public async login(@Body() loginUserDto: LoginUserDto): Promise<LoginStatus> {
     return await this.authService.login(loginUserDto);
   }
