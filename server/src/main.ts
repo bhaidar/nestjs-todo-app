@@ -4,6 +4,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { getDbConnectionOptions, runDbMigrations } from '@shared/utils';
+import * as helmet from 'helmet';
+import * as csurf from 'csurf';
+import * as rateLimit from 'express-rate-limit';
 
 const port = process.env.PORT;
 
@@ -13,6 +16,30 @@ async function bootstrap() {
     {
       logger: Boolean(process.env.ENABLELOGGING),
     },
+  );
+
+  /**
+   * Helmet can help protect your app from some well-known
+   * web vulnerabilities by setting HTTP headers appropriately.
+   * Generally, Helmet is just a collection of 12 smaller
+   * middleware functions that set security-related HTTP headers
+   *
+   * https://github.com/helmetjs/helmet#how-it-works
+   */
+  app.use(helmet());
+
+  app.enableCors();
+
+  app.use(csurf());
+
+  /**
+   * To protect your applications from brute-force attacks
+   */
+  app.use(
+    new rateLimit({
+      windowMs: 15 * 60 * 1000,
+      max: 100,
+    }),
   );
 
   /**
