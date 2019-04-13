@@ -10,6 +10,9 @@ const port = process.env.PORT;
 async function bootstrap() {
   const app = await NestFactory.create(
     AppModule.forRoot(await getDbConnectionOptions(process.env.NODE_ENV)),
+    {
+      logger: Boolean(process.env.ENABLELOGGING),
+    },
   );
 
   /**
@@ -17,7 +20,14 @@ async function bootstrap() {
    */
   app.useGlobalPipes(
     new ValidationPipe({
+      /**
+       * Strip away all none-object existing properties
+       */
       whitelist: true,
+      /***
+       * Transform input objects to their corresponding DTO objects
+       */
+      transform: true,
     }),
   );
 
