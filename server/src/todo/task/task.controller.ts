@@ -41,6 +41,7 @@ export class TaskController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard())
   async destory(@Param('id') id: string): Promise<TaskDto> {
     return await this.taskService.destoryTask(id);
   }

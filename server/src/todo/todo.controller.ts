@@ -47,14 +47,16 @@ export class TodoController {
 
   @Put(':id')
   @UsePipes(new ValidationPipe())
+  @UseGuards(AuthGuard())
   async update(
     @Param('id') id: string,
     @Body() todoDto: TodoDto,
   ): Promise<TodoDto> {
-    return await this.todoService.updateTodo(todoDto);
+    return await this.todoService.updateTodo(id, todoDto);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard())
   async destory(@Param('id') id: string): Promise<TodoDto> {
     return await this.todoService.destoryTodo(id);
   }

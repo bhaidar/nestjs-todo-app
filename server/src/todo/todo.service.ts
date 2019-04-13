@@ -59,8 +59,8 @@ export class TodoService {
     return toTodoDto(todo);
   }
 
-  async updateTodo(todoDto: TodoDto): Promise<TodoDto> {
-    const { id, name, description } = todoDto;
+  async updateTodo(id: string, todoDto: TodoDto): Promise<TodoDto> {
+    const { name, description } = todoDto;
 
     let todo: TodoEntity = await this.todoRepo.findOne({ where: { id } });
 
@@ -72,14 +72,17 @@ export class TodoService {
     }
 
     todo = {
-      id: todo.id,
+      id,
       name,
       description,
     };
 
     await this.todoRepo.update({ id }, todo); // update
 
-    todo = await this.todoRepo.findOne({ where: { id }, relations: ['tasks'] }); // re-query
+    todo = await this.todoRepo.findOne({
+      where: { id },
+      relations: ['tasks', 'owner'],
+    }); // re-query
 
     return toTodoDto(todo);
   }
@@ -87,7 +90,7 @@ export class TodoService {
   async destoryTodo(id: string): Promise<TodoDto> {
     const todo: TodoEntity = await this.todoRepo.findOne({
       where: { id },
-      relations: ['tasks'],
+      relations: ['tasks', 'owner'],
     });
 
     if (!todo) {
