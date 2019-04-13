@@ -40,7 +40,7 @@ export class TaskService {
 
     const todo: TodoEntity = await this.todoRepo.findOne({
       where: { id: todoId },
-      relations: ['tasks'],
+      relations: ['tasks', 'owner'],
     });
 
     const task: TaskEntity = await this.taskRepo.create({

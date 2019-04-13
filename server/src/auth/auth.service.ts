@@ -55,11 +55,6 @@ export class AuthService {
     return user;
   }
 
-  private _sanitizeUser(user: UserEntity) {
-    delete user.password;
-    return user;
-  }
-
   private _createToken({ username }: UserDto): any {
     const user: JwtPayload = { username };
     const accessToken = this.jwtService.sign(user);

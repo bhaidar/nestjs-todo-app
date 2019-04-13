@@ -60,4 +60,9 @@ export class UsersService {
 
     return toUserDto(user);
   }
+
+  private _sanitizeUser(user: UserEntity) {
+    delete user.password;
+    return user;
+  }
 }

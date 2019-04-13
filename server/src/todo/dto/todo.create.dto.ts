@@ -8,7 +8,4 @@ export class TodoCreateDto {
   @IsOptional()
   @MaxLength(500)
   description?: string;
-
-  @IsNotEmpty()
-  owner: UserDto;
 }

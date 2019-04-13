@@ -7,11 +7,13 @@ import {
   Delete,
   ValidationPipe,
   UsePipes,
+  UseGuards,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { TaskListDto } from '../dto/task.list.dto';
 import { TaskDto } from '../dto/task.dto';
 import { TaskCreateDto } from '@todo/dto/task.create.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api/tasks')
 export class TaskController {
@@ -30,6 +32,7 @@ export class TaskController {
 
   @Post('todo/:id')
   @UsePipes(new ValidationPipe())
+  @UseGuards(AuthGuard())
   async create(
     @Param('id') todo: string,
     @Body() taskDto: TaskCreateDto,

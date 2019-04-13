@@ -12,7 +12,7 @@ export const toTodoDto = (data: TodoEntity): TodoDto => {
     id,
     name,
     description,
-    owner,
+    owner: owner ? toUserDto(owner) : null,
   };
 
   if (tasks) {
