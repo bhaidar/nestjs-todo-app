@@ -32,8 +32,9 @@
     "class-transformer": "0.2.0",
     "class-validator": "0.9.1",
     "dotenv": "7.0.0",
+    "global": "^4.3.2",
     "pg": "7.9.0",
-    "reflect-metadata": "0.1.13",
+    "reflect-metadata": "0.1.12",
     "rxjs": "6.4.0",
     "typeorm": "0.2.16",
     "uuid": "3.3.2"
