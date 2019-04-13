@@ -1,4 +1,5 @@
 import { IsNotEmpty, MaxLength, IsOptional } from 'class-validator';
+import { UserDto } from '@user/dto/user.dto';
 
 export class TodoCreateDto {
   @IsNotEmpty()
@@ -7,4 +8,7 @@ export class TodoCreateDto {
   @IsOptional()
   @MaxLength(500)
   description?: string;
+
+  @IsNotEmpty()
+  owner: UserDto;
 }

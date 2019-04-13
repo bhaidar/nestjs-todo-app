@@ -8,6 +8,7 @@ import {
   BeforeInsert,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { TodoEntity } from '@todo/entity/todo.entity';
 
 @Entity('user')
 export class UserEntity {

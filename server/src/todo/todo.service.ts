@@ -16,14 +16,14 @@ export class TodoService {
   ) {}
 
   async getAllTodo(): Promise<TodoDto[]> {
-    const todos = await this.todoRepo.find({ relations: ['tasks'] });
+    const todos = await this.todoRepo.find({ relations: ['tasks', 'owner'] });
     return todos.map(todo => toTodoDto(todo));
   }
 
   async getOneTodo(id: string): Promise<TodoDto> {
     const todo = await this.todoRepo.findOne({
       where: { id },
-      relations: ['tasks'],
+      relations: ['tasks', 'owner'],
     });
 
     if (!todo) {
@@ -37,11 +37,12 @@ export class TodoService {
   }
 
   async createTodo(todoDto: TodoCreateDto): Promise<TodoDto> {
-    const { name, description } = todoDto;
+    const { name, description, owner } = todoDto;
 
     const todo: TodoEntity = await this.todoRepo.create({
       name,
       description,
+      owner,
     });
 
     await this.todoRepo.save(todo);
