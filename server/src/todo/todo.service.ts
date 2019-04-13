@@ -3,7 +3,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { TodoEntity } from '@todo/entity/todo.entity';
 import { TodoDto } from './dto/todo.dto';
 import { toTodoDto } from '@shared/mapper';
-import { TodoCreateDto } from './dto/todo.create.dto';
+import { CreateTodoDto } from './dto/todo.create.dto';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -41,9 +41,9 @@ export class TodoService {
 
   async createTodo(
     { username }: UserDto,
-    todoDto: TodoCreateDto,
+    createTodoDto: CreateTodoDto,
   ): Promise<TodoDto> {
-    const { name, description } = todoDto;
+    const { name, description } = createTodoDto;
 
     // get the user from db
     const owner = await this.usersService.findOne({ where: { username } });

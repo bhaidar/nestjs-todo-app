@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { TodoListDto } from './dto/todo.list.dto';
 import { TodoDto } from './dto/todo.dto';
-import { TodoCreateDto } from './dto/todo.create.dto';
+import { CreateTodoDto } from './dto/todo.create.dto';
 import { TodoService } from './todo.service';
 import { AuthGuard } from '@nestjs/passport';
 import { UserDto } from '@user/dto/user.dto';
@@ -37,12 +37,12 @@ export class TodoController {
   @UsePipes(new ValidationPipe())
   @UseGuards(AuthGuard())
   async create(
-    @Body() todoCreateDto: TodoCreateDto,
+    @Body() createTodoDto: CreateTodoDto,
     @Req() req: any,
   ): Promise<TodoDto> {
     const user = <UserDto>req.user;
 
-    return await this.todoService.createTodo(user, todoCreateDto);
+    return await this.todoService.createTodo(user, createTodoDto);
   }
 
   @Put(':id')

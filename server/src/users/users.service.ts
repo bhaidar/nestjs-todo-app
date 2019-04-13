@@ -4,8 +4,8 @@ import { Repository } from 'typeorm';
 import { UserDto } from './dto/user.dto';
 import { UserEntity } from '@user/entity/user.entity';
 import { toUserDto } from '@shared/mapper';
-import { UserCreateDto } from './dto/user.create.dto';
-import { UserLoginDto } from './dto/user-login.dto';
+import { CreateUserDto } from './dto/user.create.dto';
+import { LoginUserDto } from './dto/user-login.dto';
 import { comparePasswords } from '@shared/utils';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class UsersService {
     return toUserDto(user);
   }
 
-  async findByLogin({ username, password }: UserLoginDto): Promise<UserDto> {
+  async findByLogin({ username, password }: LoginUserDto): Promise<UserDto> {
     const user = await this.userRepo.findOne({ where: { username } });
 
     if (!user) {
@@ -41,7 +41,7 @@ export class UsersService {
     return await this.findOne({ where: { username } });
   }
 
-  async create(userDto: UserCreateDto): Promise<UserDto> {
+  async create(userDto: CreateUserDto): Promise<UserDto> {
     const { username, password, email } = userDto;
 
     // check if the user exists in the db

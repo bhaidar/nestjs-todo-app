@@ -12,7 +12,7 @@ import {
 import { TaskService } from './task.service';
 import { TaskListDto } from '../dto/task.list.dto';
 import { TaskDto } from '../dto/task.dto';
-import { TaskCreateDto } from '@todo/dto/task.create.dto';
+import { CreateTaskDto } from '@todo/dto/task.create.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api/tasks')
@@ -35,9 +35,9 @@ export class TaskController {
   @UseGuards(AuthGuard())
   async create(
     @Param('id') todo: string,
-    @Body() taskDto: TaskCreateDto,
+    @Body() createTaskDto: CreateTaskDto,
   ): Promise<TaskDto> {
-    return await this.taskService.createTask(todo, taskDto);
+    return await this.taskService.createTask(todo, createTaskDto);
   }
 
   @Delete(':id')

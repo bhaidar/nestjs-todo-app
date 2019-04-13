@@ -1,10 +1,9 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { UserCreateDto } from '@user/dto/user.create.dto';
+import { CreateUserDto } from '@user/dto/user.create.dto';
 import { RegistrationStatus } from './interfaces/regisration-status.interface';
 import { UsersService } from '@user/users.service';
 import { LoginStatus } from './interfaces/login-status.interface';
-import { UserLoginDto } from '../users/dto/user-login.dto';
-import { UserEntity } from '@user/entity/user.entity';
+import { LoginUserDto } from '../users/dto/user-login.dto';
 import { UserDto } from '@user/dto/user.dto';
 import { JwtPayload } from './interfaces/payload.interface';
 import { JwtService } from '@nestjs/jwt';
@@ -16,7 +15,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(userDto: UserCreateDto): Promise<RegistrationStatus> {
+  async register(userDto: CreateUserDto): Promise<RegistrationStatus> {
     let status: RegistrationStatus = {
       success: true,
       message: 'user registered',
@@ -34,9 +33,9 @@ export class AuthService {
     return status;
   }
 
-  async login(userLoginDto: UserLoginDto): Promise<LoginStatus> {
+  async login(loginUserDto: LoginUserDto): Promise<LoginStatus> {
     // find user in db
-    const user = await this.usersService.findByLogin(userLoginDto);
+    const user = await this.usersService.findByLogin(loginUserDto);
 
     // generate and sign token
     const token = this._createToken(user);

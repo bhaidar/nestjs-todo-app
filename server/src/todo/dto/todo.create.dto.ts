@@ -1,7 +1,7 @@
 import { IsNotEmpty, MaxLength, IsOptional } from 'class-validator';
 import { UserDto } from '@user/dto/user.dto';
 
-export class TodoCreateDto {
+export class CreateTodoDto {
   @IsNotEmpty()
   name: string;
 
