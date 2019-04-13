@@ -42,6 +42,10 @@ export class UsersService {
     return toUserDto(user);
   }
 
+  async findByPayload({ username }: any): Promise<UserDto> {
+    return await this.findOne({ where: { username } });
+  }
+
   async create(userDto: UserCreateDto): Promise<UserDto> {
     const { username, password, email } = userDto;
 

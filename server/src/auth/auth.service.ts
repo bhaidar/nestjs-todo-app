@@ -47,6 +47,14 @@ export class AuthService {
     };
   }
 
+  async validateUser(payload: JwtPayload): Promise<UserDto> {
+    const user = await this.usersService.findByPayload(payload);
+    if (!user) {
+      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+    }
+    return user;
+  }
+
   private _sanitizeUser(user: UserEntity) {
     delete user.password;
     return user;
