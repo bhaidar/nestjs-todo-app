@@ -6,9 +6,10 @@ import {
   Body,
   Put,
   Delete,
+  ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { TodoListDto } from './dto/todo.list.dto';
-import { toPromise } from './shared/utils';
 import { TodoDto } from './dto/todo.dto';
 import { TodoCreateDto } from './dto/todo.create.dto';
 import { TodoService } from './todo.service';
@@ -20,7 +21,7 @@ export class TodoController {
   @Get()
   async findAll(): Promise<TodoListDto> {
     const todos = await this.todoService.getAllTodo();
-    return toPromise({ todos });
+    return { todos };
   }
 
   @Get(':id')
@@ -29,11 +30,13 @@ export class TodoController {
   }
 
   @Post()
+  @UsePipes(new ValidationPipe())
   async create(@Body() todoCreateDto: TodoCreateDto): Promise<TodoDto> {
     return await this.todoService.createTodo(todoCreateDto);
   }
 
   @Put(':id')
+  @UsePipes(new ValidationPipe())
   async update(
     @Param('id') id: string,
     @Body() todoDto: TodoDto,
