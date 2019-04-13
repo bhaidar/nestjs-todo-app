@@ -23,7 +23,7 @@ export class AuthService {
     };
 
     try {
-      const user = await this.usersService.create(userDto);
+      await this.usersService.create(userDto);
     } catch (err) {
       status = {
         success: false,

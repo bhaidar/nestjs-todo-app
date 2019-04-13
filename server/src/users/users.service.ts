@@ -20,11 +20,6 @@ export class UsersService {
     return toUserDto(user);
   }
 
-  async findById(id: string): Promise<UserDto> {
-    const user = await this.userRepo.findOne(id);
-    return toUserDto(user);
-  }
-
   async findByLogin({ username, password }: UserLoginDto): Promise<UserDto> {
     const user = await this.userRepo.findOne({ where: { username } });
 
