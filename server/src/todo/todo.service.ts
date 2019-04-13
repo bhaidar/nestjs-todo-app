@@ -2,7 +2,6 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 import { TodoEntity } from '@todo/entity/todo.entity';
 import { TodoDto } from './dto/todo.dto';
-import { toPromise } from '@shared/utils';
 import { toTodoDto } from '@shared/mapper';
 import { TodoCreateDto } from './dto/todo.create.dto';
 
@@ -18,7 +17,7 @@ export class TodoService {
 
   async getAllTodo(): Promise<TodoDto[]> {
     const todos = await this.todoRepo.find({ relations: ['tasks'] });
-    return toPromise(todos.map(todo => toTodoDto(todo)));
+    return todos.map(todo => toTodoDto(todo));
   }
 
   async getOneTodo(id: string): Promise<TodoDto> {
@@ -34,7 +33,7 @@ export class TodoService {
       );
     }
 
-    return toPromise(toTodoDto(todo));
+    return toTodoDto(todo);
   }
 
   async createTodo(todoDto: TodoCreateDto): Promise<TodoDto> {
@@ -47,7 +46,7 @@ export class TodoService {
 
     await this.todoRepo.save(todo);
 
-    return toPromise(toTodoDto(todo));
+    return toTodoDto(todo);
   }
 
   async updateTodo(todoDto: TodoDto): Promise<TodoDto> {
@@ -72,7 +71,7 @@ export class TodoService {
 
     todo = await this.todoRepo.findOne({ where: { id }, relations: ['tasks'] }); // re-query
 
-    return toPromise(toTodoDto(todo));
+    return toTodoDto(todo);
   }
 
   async destoryTodo(id: string): Promise<TodoDto> {
@@ -90,6 +89,6 @@ export class TodoService {
 
     await this.todoRepo.delete({ id }); // delete todo list
 
-    return toPromise(toTodoDto(todo));
+    return toTodoDto(todo);
   }
 }

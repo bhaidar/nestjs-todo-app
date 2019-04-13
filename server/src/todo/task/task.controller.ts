@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { TaskListDto } from '../dto/task.list.dto';
-import { toPromise } from '@shared/utils';
 import { TaskDto } from '../dto/task.dto';
 
 @Controller('api/tasks')
@@ -25,7 +24,7 @@ export class TaskController {
   @Get('todo/:id')
   async findTasksByTodo(@Param('id') id: string): Promise<TaskListDto> {
     const tasks = await this.taskService.getTasksByTodo(id);
-    return toPromise({ tasks });
+    return { tasks };
   }
 
   @Post('todo/:id')

@@ -13,7 +13,6 @@ import { TodoListDto } from './dto/todo.list.dto';
 import { TodoDto } from './dto/todo.dto';
 import { TodoCreateDto } from './dto/todo.create.dto';
 import { TodoService } from './todo.service';
-import { toPromise } from '@shared/utils';
 
 @Controller('api/todos')
 export class TodoController {
@@ -22,7 +21,7 @@ export class TodoController {
   @Get()
   async findAll(): Promise<TodoListDto> {
     const todos = await this.todoService.getAllTodo();
-    return toPromise({ todos });
+    return { todos };
   }
 
   @Get(':id')

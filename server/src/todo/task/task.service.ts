@@ -2,7 +2,6 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { TaskCreateDto } from '../dto/task.create.dto';
 import { TaskDto } from '../dto/task.dto';
 import { TaskEntity } from '@todo/entity/task.entity';
-import { toPromise } from '@shared/utils';
 import { toTaskDto } from '@shared/mapper';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -24,7 +23,7 @@ export class TaskService {
       throw new HttpException(`Task doesn't exist`, HttpStatus.BAD_REQUEST);
     }
 
-    return toPromise(toTaskDto(task));
+    return toTaskDto(task);
   }
 
   async getTasksByTodo(id: string): Promise<TaskDto[]> {
@@ -33,7 +32,7 @@ export class TaskService {
       relations: ['todo'],
     });
 
-    return toPromise(tasks.map(task => toTaskDto(task)));
+    return tasks.map(task => toTaskDto(task));
   }
 
   async createTask(todoId: string, taskDto: TaskCreateDto): Promise<TaskDto> {
@@ -51,7 +50,7 @@ export class TaskService {
 
     await this.taskRepo.save(task);
 
-    return toPromise(toTaskDto(task));
+    return toTaskDto(task);
   }
 
   async destoryTask(id: string): Promise<TaskDto> {
@@ -63,6 +62,6 @@ export class TaskService {
 
     await this.taskRepo.delete({ id });
 
-    return toPromise(toTaskDto(task));
+    return toTaskDto(task);
   }
 }
