@@ -2,6 +2,8 @@ import { TaskDto } from '@todo/dto/task.dto';
 import { TodoEntity } from '@todo/entity/todo.entity';
 import { TodoDto } from '@todo/dto/todo.dto';
 import { TaskEntity } from '@todo/entity/task.entity';
+import { UserEntity } from '@user/entity/user.entity';
+import { UserDto } from '@user/dto/user.dto';
 
 export const toTodoDto = (data: TodoEntity): TodoDto => {
   const { id, name, description, tasks } = data;
@@ -31,4 +33,16 @@ export const toTaskDto = (data: TaskEntity): TaskDto => {
   };
 
   return taskDto;
+};
+
+export const toUserDto = (data: UserEntity): UserDto => {
+  const { id, username, email } = data;
+
+  let userDto: UserDto = {
+    id,
+    username,
+    email,
+  };
+
+  return userDto;
 };

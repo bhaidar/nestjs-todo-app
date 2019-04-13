@@ -1,4 +1,5 @@
 import { getConnectionOptions, getConnection } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 export const toPromise = <T>(data: T): Promise<T> => {
   return new Promise<T>(resolve => {
@@ -25,4 +26,8 @@ export const getDbConnection = async (connectionName: string = 'default') => {
 export const runDbMigrations = async (connectionName: string = 'default') => {
   const conn = await getDbConnection(connectionName);
   await conn.runMigrations();
+};
+
+export const comparePasswords = async (userPassword, currentPassword) => {
+  return await bcrypt.compare(currentPassword, userPassword);
 };

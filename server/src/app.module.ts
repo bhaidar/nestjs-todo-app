@@ -5,16 +5,20 @@ import { AppService } from './app.service';
 import { TodoModule } from './todo/todo.module';
 import { ConnectionOptions } from 'typeorm';
 import { UsersModule } from './users/users.module';
+import { CoreModule } from './core/core.module';
 
-@Module({
-  imports: [UsersModule]
-})
+@Module({})
 export class AppModule {
   static forRoot(connOptions: ConnectionOptions): DynamicModule {
     return {
       module: AppModule,
       controllers: [AppController],
-      imports: [TodoModule, TypeOrmModule.forRoot(connOptions)],
+      imports: [
+        TodoModule,
+        UsersModule,
+        CoreModule,
+        TypeOrmModule.forRoot(connOptions),
+      ],
       providers: [AppService],
     };
   }
