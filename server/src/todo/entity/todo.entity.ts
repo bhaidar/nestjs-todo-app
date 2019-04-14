@@ -19,7 +19,6 @@ export class TodoEntity {
   @CreateDateColumn() updatedOn?: Date;
 
   @ManyToOne(type => UserEntity)
-  @JoinTable()
   owner?: UserEntity;
 
   @OneToMany(type => TaskEntity, task => task.todo)
