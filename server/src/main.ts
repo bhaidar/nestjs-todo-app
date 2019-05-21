@@ -5,9 +5,7 @@ import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { getDbConnectionOptions, runDbMigrations } from '@shared/utils';
 import * as helmet from 'helmet';
-import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
-import * as cookieParser from 'cookie-parser';
 
 const port = process.env.PORT;
 
