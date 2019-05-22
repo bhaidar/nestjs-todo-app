@@ -55,10 +55,12 @@ export class AuthService {
   }
 
   private _createToken({ username }: UserDto): any {
+    const expiresIn = process.env.EXPIRESIN;
+
     const user: JwtPayload = { username };
     const accessToken = this.jwtService.sign(user);
     return {
-      expiresIn: process.env.EXPIRESIN,
+      expiresIn,
       accessToken,
     };
   }

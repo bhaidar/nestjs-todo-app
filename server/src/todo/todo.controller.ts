@@ -24,7 +24,6 @@ export class TodoController {
   @Get()
   async findAll(@Req() req: any): Promise<TodoListDto> {
     const todos = await this.todoService.getAllTodo();
-    //console.log('csrf: ', req.csrfToken());
     return { todos };
   }
 
@@ -39,7 +38,7 @@ export class TodoController {
     @Body() createTodoDto: CreateTodoDto,
     @Req() req: any,
   ): Promise<TodoDto> {
-    const user = <UserDto>req.user;
+    const user = req.user as UserDto;
 
     return await this.todoService.createTodo(user, createTodoDto);
   }

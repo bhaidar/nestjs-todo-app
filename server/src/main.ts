@@ -13,7 +13,8 @@ async function bootstrap() {
   const app = await NestFactory.create(
     AppModule.forRoot(await getDbConnectionOptions(process.env.NODE_ENV)),
     {
-      logger: Boolean(process.env.ENABLELOGGING),
+      // logger: Boolean(process.env.ENABLELOGGING),
+      logger: console,
     },
   );
 
@@ -71,4 +72,5 @@ async function bootstrap() {
 
   Logger.log(`Server started running on http://localhost:${port}`, 'Bootstrap');
 }
+
 bootstrap();
