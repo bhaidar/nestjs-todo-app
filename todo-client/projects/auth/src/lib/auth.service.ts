@@ -10,12 +10,14 @@ import { map } from 'rxjs/operators';
 
 export interface ApplicationUser {
   access_token: string;
+  expiresIn: Date;
+  username: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class AuthService {
   private currentUserSubject: BehaviorSubject<ApplicationUser>;
   public currentUser: Observable<ApplicationUser>;
 
@@ -35,7 +37,10 @@ export class AuthenticationService {
       map(user => {
         // login successful if there's a jwt token in the response
         if (user && user.access_token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          /**
+           * store user details and jwt token in local
+           * storage to keep user logged in between page refreshes
+           */
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
         }
