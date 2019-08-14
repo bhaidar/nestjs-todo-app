@@ -24,6 +24,22 @@
       ],
       "auth/*": [
         "dist/auth/*"
+      ],
+      "common": [
+        "dist/common",
+        "dist/common",
+        "dist/common"
+      ],
+      "common/*": [
+        "dist/common/*",
+        "dist/common/*",
+        "dist/common/*"
+      ],
+      "app-common": [
+        "dist/app-common"
+      ],
+      "app-common/*": [
+        "dist/app-common/*"
       ]
     }
   },

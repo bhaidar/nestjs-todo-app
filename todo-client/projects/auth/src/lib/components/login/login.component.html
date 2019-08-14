@@ -1,0 +1,57 @@
+<div class="container my-3">
+  <div class="row text-center mb-5">
+    <div class="col-md-12">
+      <h2>Login</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="usernam">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="username"
+            formControlName="username"
+            placeholder="Enter email"
+          />
+          <div *ngIf="submitted && f.username.errors">
+            <small
+              *ngIf="f.username.errors.required"
+              class="form-text text-muted"
+              >Username is required</small
+            >
+            <small
+              *ngIf="f.username.errors.pattern"
+              class="form-text text-muted"
+              >Email Address is invalid</small
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <div *ngIf="submitted && f.password.errors">
+            <small
+              *ngIf="f.password.errors.required"
+              class="form-text text-muted"
+              >Password is required</small
+            >
+          </div>
+        </div>
+        <div *ngIf="error" class="my-3">
+          <small class="form-text text-muted">{{ error | json }}</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
