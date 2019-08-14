@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
-    "run:services": "docker-compose up && exit 0",
+    "run:services": "docker-compose up -d && exit 0",
     "stop:services": "docker-compose kill",
     "start": "ts-node src/index.ts",
     "start:dev": "nodemon",
