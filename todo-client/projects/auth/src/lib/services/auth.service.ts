@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 export interface ApplicationUser {
-	access_token: string;
+	accessToken: string;
 	expiresIn: Date;
 	username: string;
 }
@@ -36,7 +36,7 @@ export class AuthService {
 		return this.http.post<any>('/auth/login', { username, password }).pipe(
 			map(user => {
 				// login successful if there's a jwt token in the response
-				if (user && user.access_token) {
+				if (user && user.accessToken) {
 					// store; user; details; and; jwt; token in local
 					// storage; to; keep; user; logged in between; page; refreshes;
 
