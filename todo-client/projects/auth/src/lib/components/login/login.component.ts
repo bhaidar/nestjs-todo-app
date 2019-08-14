@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../auth.service';
 import { first } from 'rxjs/operators';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	templateUrl: 'login.component.html',
@@ -23,13 +23,7 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() {
 		this.loginForm = this.formBuilder.group({
-			username: [
-				'',
-				Validators.compose([
-					Validators.required,
-					Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-				])
-			],
+			username: ['', Validators.required],
 			password: ['', Validators.required]
 		});
 

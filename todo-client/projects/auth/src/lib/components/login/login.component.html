@@ -9,24 +9,19 @@
     <div class="col-md-6 offset-md-3">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="usernam">Email address</label>
+          <label for="usernam">Username</label>
           <input
-            type="email"
+            type="text"
             class="form-control"
             id="username"
             formControlName="username"
-            placeholder="Enter email"
+            placeholder="Username"
           />
           <div *ngIf="submitted && f.username.errors">
             <small
               *ngIf="f.username.errors.required"
               class="form-text text-muted"
               >Username is required</small
-            >
-            <small
-              *ngIf="f.username.errors.pattern"
-              class="form-text text-muted"
-              >Email Address is invalid</small
             >
           </div>
         </div>
