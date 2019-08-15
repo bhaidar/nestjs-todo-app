@@ -4,6 +4,7 @@ import { LoginComponent } from 'projects/auth/src/public-api';
 import { MasterComponent } from './shared/master/master.component';
 import { HomeComponent } from './shared/home/home.component';
 import { AuthGuard } from 'projects/auth/src/lib/auth.guard';
+import { TodoComponent } from 'projects/todo/src/public-api';
 
 const routes: Routes = [
 	{
@@ -14,6 +15,10 @@ const routes: Routes = [
 			{
 				path: '',
 				component: HomeComponent
+			},
+			{
+				path: 'todo',
+				component: TodoComponent
 			}
 		]
 	},

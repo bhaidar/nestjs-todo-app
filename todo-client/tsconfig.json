@@ -40,6 +40,12 @@
       ],
       "app-common/*": [
         "dist/app-common/*"
+      ],
+      "todo": [
+        "dist/todo"
+      ],
+      "todo/*": [
+        "dist/todo/*"
       ]
     }
   },
