@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2 class="">Todo Lists</h2>
+  </div>
+</div>
+
+<div class="row my-4">
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12 bg-light py-3">
+        <h5>Todo List Here</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 my-2">
+        <lib-todo-create (action)="doAction($event)"></lib-todo-create>
+        <lib-todo-list></lib-todo-list>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12 bg-light py-3">
+        <h5>Tasks here</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 my-2">
+        <router-outlet></router-outlet>
+        Hello World!
+      </div>
+    </div>
+  </div>
+</div>

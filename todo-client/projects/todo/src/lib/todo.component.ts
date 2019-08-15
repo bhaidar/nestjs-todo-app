@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-todo',
-  template: `
-    <p>
-      todo works!
-    </p>
-  `,
-  styles: []
+	selector: 'lib-todo',
+	templateUrl: 'todo.component.html',
+	styles: []
 })
 export class TodoComponent implements OnInit {
+	constructor() {}
 
-  constructor() { }
+	ngOnInit() {}
 
-  ngOnInit() {
-  }
-
+	public doAction(task: string): void {
+		alert(task);
+	}
 }
