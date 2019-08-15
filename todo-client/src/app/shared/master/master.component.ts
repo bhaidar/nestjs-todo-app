@@ -22,18 +22,25 @@ import { Router } from '@angular/router';
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul
-            class="navbar-nav ml-auto"
-            [routerLinkActiveOptions]="{ exact: true }"
-            routerLinkActive="active"
-          >
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/']">
+              <a
+                class="nav-link"
+                [routerLink]="['/']"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLinkActive="active"
+              >
                 Home
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/todo']">Todo</a>
+              <a
+                class="nav-link"
+                [routerLink]="['/todo']"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLinkActive="active"
+                >Todo</a
+              >
             </li>
             <li *ngIf="loggedIn" class="nav-item">
               <a class="nav-link" (click)="logout()" href="">Logout</a>
