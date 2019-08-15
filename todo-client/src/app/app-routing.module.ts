@@ -3,11 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from 'projects/auth/src/public-api';
 import { MasterComponent } from './shared/master/master.component';
 import { HomeComponent } from './shared/home/home.component';
+import { AuthGuard } from 'projects/auth/src/lib/auth.guard';
 
 const routes: Routes = [
 	{
 		path: '',
 		component: MasterComponent,
+		canActivate: [AuthGuard],
 		children: [
 			{
 				path: '',

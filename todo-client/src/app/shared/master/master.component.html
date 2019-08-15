@@ -25,7 +25,7 @@
           <a class="nav-link" href="#">Todo</a>
         </li>
         <li *ngIf="loggedIn" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" href="#">Logout</a>
+          <a class="nav-link" (click)="logout()" href="#">Logout</a>
         </li>
       </ul>
     </div>
