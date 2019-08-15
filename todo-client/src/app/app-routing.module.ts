@@ -4,7 +4,7 @@ import { LoginComponent } from 'projects/auth/src/public-api';
 import { MasterComponent } from './shared/master/master.component';
 import { HomeComponent } from './shared/home/home.component';
 import { AuthGuard } from 'projects/auth/src/lib/auth.guard';
-import { TodoComponent } from 'projects/todo/src/public-api';
+import { TodoHomeComponent, TaskComponent } from 'projects/todo/src/public-api';
 
 const routes: Routes = [
 	{
@@ -18,11 +18,11 @@ const routes: Routes = [
 			},
 			{
 				path: 'todo',
-				component: TodoComponent,
+				component: TodoHomeComponent,
 				children: [
 					{
 						path: 'tasks/:id',
-						component: HomeComponent
+						component: TaskComponent
 					}
 				]
 			}

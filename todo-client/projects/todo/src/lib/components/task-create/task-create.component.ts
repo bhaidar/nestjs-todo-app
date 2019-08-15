@@ -2,22 +2,22 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { DoAction } from 'projects/app-common/src/public-api';
 
 @Component({
-	selector: 'lib-todo-create',
+	selector: 'lib-task-create',
 	template: `
     <div class="row my-2 mb-4">
       <div class="col-md-8 offset-md-2">
         <input
-          [(ngModel)]="todo"
+          [(ngModel)]="task"
           (keyup.enter)="OnEnter()"
           class="form-control"
-          placeholder="Type a Todo and hit (Enter)"
+          placeholder="Type a Task and hit (Enter)"
         />
       </div>
     </div>
   `
 })
-export class TodoCreateComponent implements OnInit {
-	public todo = '';
+export class TaskCreateComponent implements OnInit {
+	public task = '';
 
 	@Output()
 	public action: EventEmitter<DoAction> = new EventEmitter();
@@ -27,7 +27,7 @@ export class TodoCreateComponent implements OnInit {
 	ngOnInit() {}
 
 	public OnEnter() {
-		this.action.emit({ type: 'add-todo', payload: this.todo });
-		this.todo = '';
+		this.action.emit({ type: 'add-task', payload: this.task });
+		this.task = '';
 	}
 }

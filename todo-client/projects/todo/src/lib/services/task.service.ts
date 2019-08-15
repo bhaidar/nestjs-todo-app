@@ -5,8 +5,8 @@ import {
 	HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Todo } from '../models/todo.model';
 import { catchError, map } from 'rxjs/operators';
+import { Task } from '../models/task.model';
 
 const httpOptions = {
 	headers: new HttpHeaders({
@@ -18,26 +18,28 @@ const httpOptions = {
 @Injectable({
 	providedIn: 'root'
 })
-export class TodoService {
-	private baseUrl = 'api/todos'; // URL to web api
+export class TaskService {
+	private baseUrl = 'api/tasks'; // URL to web api
 
 	constructor(private readonly http: HttpClient) {}
 
-	public create(todo: Todo): Observable<Todo> {
+	public create(todoId: string, task: Task): Observable<Task> {
 		return this.http
-			.post<Todo>(this.baseUrl, todo, httpOptions)
+			.post<Task>(`${this.baseUrl}/todo/${todoId}`, task, httpOptions)
 			.pipe(catchError(this.handleError));
 	}
 
-	public findAll(): Observable<Todo[]> {
-		return this.http.get<Todo[]>(this.baseUrl, httpOptions).pipe(
-			map((results: any) => results.todos),
-			catchError(this.handleError)
-		);
+	public findAll(todoId: string): Observable<Task[]> {
+		return this.http
+			.get<Task[]>(`${this.baseUrl}/todo/${todoId}`, httpOptions)
+			.pipe(
+				map((results: any) => results.tasks),
+				catchError(this.handleError)
+			);
 	}
 
 	public delete(id: string): Observable<{}> {
-		const url = `${this.baseUrl}/${id}`; // DELETE api/todos/42-5c-...
+		const url = `${this.baseUrl}/${id}`; // DELETE api/tasks/42-5c-...
 		return this.http
 			.delete(url, httpOptions)
 			.pipe(catchError(this.handleError));

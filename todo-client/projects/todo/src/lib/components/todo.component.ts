@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Todo } from './models/todo.model';
-import { TodoService } from './services/todo.service';
 import { switchMap, tap } from 'rxjs/operators';
 import { DoAction } from 'projects/app-common/src/public-api';
+import { Todo } from '../models/todo.model';
+import { TodoService } from '../services/todo.service';
 
 @Component({
 	selector: 'lib-todo',
-	templateUrl: 'todo.component.html',
-	styles: [
-		`
-      .border-3 {
-        border-width: 3px !important;
-      }
-    `
-	]
+	template: `
+    <lib-todo-create (action)="doAction($event)"></lib-todo-create>
+    <lib-todo-list
+      [todos]="todos$ | async"
+      (action)="doAction($event)"
+    ></lib-todo-list>
+  `
 })
 export class TodoComponent implements OnInit {
 	public todos$: Observable<Todo[]>;
@@ -49,9 +48,7 @@ export class TodoComponent implements OnInit {
 
 	private deleteTodo(todo: Todo): void {
 		if (confirm('Are you sure you want to delete this item?')) {
-			this.todoService
-				.deleteTodo(todo.id)
-				.subscribe(() => this.refresh$.next(''));
+			this.todoService.delete(todo.id).subscribe(() => this.refresh$.next(''));
 		}
 	}
 }

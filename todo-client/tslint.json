@@ -12,14 +12,10 @@
     "directive-selector": [true, "attribute", "app", "camelCase"],
     "component-selector": [true, "element", "app", "kebab-case"],
     "import-blacklist": [true, "rxjs/Rx"],
-    "indent": [
-      true,
-      "tabs",
-      2
-    ],
+    "indent": [true, "tabs", 2],
     "interface-name": false,
     "max-classes-per-file": false,
-    "max-line-length": [true, 80],
+    "max-line-length": [true, 120],
     "member-access": false,
     "member-ordering": [
       true,
