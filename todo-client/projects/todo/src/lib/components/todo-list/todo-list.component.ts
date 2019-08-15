@@ -25,7 +25,7 @@ import { DoAction } from 'projects/app-common/src/public-api';
             <a
               href="#"
               [routerLink]="['tasks', todo.id]"
-              routerLinkActive="list-group-item-light"
+              routerLinkActive="list-group-item-primary"
               class="list-group-item list-group-item-action"
             >
               ({{ i + 1 }}) {{ todo?.name }}

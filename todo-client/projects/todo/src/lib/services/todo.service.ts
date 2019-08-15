@@ -10,8 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 
 const httpOptions = {
 	headers: new HttpHeaders({
-		'Content-Type': 'application/json',
-		Authorization: 'my-auth-token'
+		'Content-Type': 'application/json'
 	})
 };
 
