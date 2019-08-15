@@ -1,13 +1,13 @@
 <div class="container my-3">
   <div class="row text-center mb-5">
-    <div class="col-md-12">
+    <div class="col-md-12 bg-light p-3">
       <h2>Login</h2>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
         <div class="form-group">
           <label for="usernam">Username</label>
           <input

@@ -100,6 +100,13 @@ export class TodoService {
       );
     }
 
+    if (todo.tasks && todo.tasks.length > 0) {
+      throw new HttpException(
+        `Cannot delete this Todo list, it has existing tasks`,
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
     await this.todoRepo.delete({ id }); // delete todo list
 
     return toTodoDto(todo);

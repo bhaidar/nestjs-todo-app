@@ -22,10 +22,10 @@
           </a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" href="#">Todo</a>
+          <a class="nav-link" [routerLink]="['/todo']">Todo</a>
         </li>
         <li *ngIf="loggedIn" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" (click)="logout()" href="#">Logout</a>
+          <a class="nav-link" (click)="logout()" href="">Logout</a>
         </li>
       </ul>
     </div>
