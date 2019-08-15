@@ -100,7 +100,7 @@ export class TodoService {
       );
     }
 
-    if (todo.tasks) {
+    if (todo.tasks && todo.tasks.length > 0) {
       throw new HttpException(
         `Cannot delete this Todo list, it has existing tasks`,
         HttpStatus.FORBIDDEN,

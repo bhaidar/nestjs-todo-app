@@ -4,6 +4,7 @@ import { switchMap, tap } from 'rxjs/operators';
 import { DoAction } from 'projects/app-common/src/public-api';
 import { Todo } from '../models/todo.model';
 import { TodoService } from '../services/todo.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'lib-todo',
@@ -19,7 +20,10 @@ export class TodoComponent implements OnInit {
 	public todos$: Observable<Todo[]>;
 	private refresh$ = new BehaviorSubject<any>('');
 
-	constructor(private readonly todoService: TodoService) {}
+	constructor(
+		private readonly router: Router,
+		private readonly todoService: TodoService
+	) {}
 
 	ngOnInit() {
 		this.todos$ = this.refresh$.pipe(
@@ -48,7 +52,10 @@ export class TodoComponent implements OnInit {
 
 	private deleteTodo(todo: Todo): void {
 		if (confirm('Are you sure you want to delete this item?')) {
-			this.todoService.delete(todo.id).subscribe(() => this.refresh$.next(''));
+			this.todoService.delete(todo.id).subscribe(() => {
+				this.refresh$.next('');
+				this.router.navigate(['/todo']);
+			});
 		}
 	}
 }
