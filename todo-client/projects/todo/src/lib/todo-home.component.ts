@@ -11,7 +11,9 @@ import { Component, OnInit } from '@angular/core';
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12 my-2"></div>
+          <div class="col-md-12 my-2">
+            <lib-todo></lib-todo>
+          </div>
         </div>
       </div>
       <div class="col-md-6">
