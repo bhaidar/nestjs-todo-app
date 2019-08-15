@@ -11,6 +11,7 @@ import { AppCommonModule } from 'projects/app-common/src/public-api';
 import { MasterComponent } from './shared/master/master.component';
 import { HomeComponent } from './shared/home/home.component';
 import { TodoModule } from 'projects/todo/src/public-api';
+import { errorInterceptorProvider } from 'projects/auth/src/lib/services/error.interceptor';
 
 @NgModule({
 	declarations: [AppComponent, MasterComponent, HomeComponent],
@@ -21,7 +22,7 @@ import { TodoModule } from 'projects/todo/src/public-api';
 		AuthModule,
 		TodoModule
 	],
-	providers: [jwtInterceptorProvider],
+	providers: [jwtInterceptorProvider, errorInterceptorProvider],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}

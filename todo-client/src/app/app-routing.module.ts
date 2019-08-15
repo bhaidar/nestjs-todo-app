@@ -36,7 +36,8 @@ const routes: Routes = [
 				component: LoginComponent
 			}
 		]
-	}
+	},
+	{ path: '**', redirectTo: '' }
 ];
 
 @NgModule({
