@@ -1,0 +1,14 @@
+.todos {
+  display: flex;
+  justify-content: center;
+}
+
+.todos .todo {
+  flex-grow: 1;
+  flex-shrink: 0;
+  max-width: 90%;
+}
+
+.todos .action {
+  margin-right: 5px;
+}

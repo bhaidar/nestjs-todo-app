@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { DoAction } from 'projects/app-common/src/public-api';
 
 @Component({
 	selector: 'lib-todo-create',
@@ -6,17 +7,17 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 	styleUrls: ['./todo-create.component.css']
 })
 export class TodoCreateComponent implements OnInit {
-	public task = '';
+	public todo = '';
 
 	@Output()
-	public action: EventEmitter<string> = new EventEmitter();
+	public action: EventEmitter<DoAction> = new EventEmitter();
 
 	constructor() {}
 
 	ngOnInit() {}
 
 	public OnEnter() {
-		this.action.emit(this.task);
-		this.task = '';
+		this.action.emit({ type: 'add-todo', payload: this.todo });
+		this.todo = '';
 	}
 }

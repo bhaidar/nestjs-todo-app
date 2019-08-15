@@ -18,7 +18,13 @@ const routes: Routes = [
 			},
 			{
 				path: 'todo',
-				component: TodoComponent
+				component: TodoComponent,
+				children: [
+					{
+						path: 'tasks/:id',
+						component: HomeComponent
+					}
+				]
 			}
 		]
 	},
